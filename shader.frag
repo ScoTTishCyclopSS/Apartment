@@ -8,15 +8,14 @@ struct Material {           // structure that describes currently used material
   bool  useTexture;         // defines whether the texture is used or not
 };
 
-uniform mat4  PVM;   // transformation matrix
-uniform sampler2D ourTexture;
-
-in vec3 ourColor;
-in vec2 texCoord;
-
+uniform Material material;
+uniform sampler2D textureSampler;
+smooth in vec4 color_v;
+smooth in vec2 texCoord;
 out vec4 fragmentColor;
 
 void main()
 {
-    fragmentColor = texture(ourTexture, texCoord);
+    if(material.useTexture)
+        fragmentColor = color_v * texture(textureSampler, texCoord);
 }

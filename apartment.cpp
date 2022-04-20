@@ -66,7 +66,7 @@ void initEnv() {
 	);
 
 	bathroom_wall->name = "Bathroom wall";
-	bathroom_wall->tex_path = "G:/StudyCTU/4th_semestr/PGR/PGR_project/tile/Tiles_037_basecolor.jpg";
+	bathroom_wall->mesh.texture = pgr::createTexture("skybox_posy.jpg");
 
 	//objects.push_back(bathroom_wall);
 	// ---------- ---------- ----------
@@ -81,7 +81,7 @@ void initEnv() {
 	);
 
 	pot->name = "Teeeeea";
-	pot->tex_path = "G:/StudyCTU/4th_semestr/PGR/PGR_project/tile/Tiles_037_basecolor.jpg";
+	pot->mesh.texture = pgr::createTexture("skybox_posy.jpg");
 
 	objects.push_back(pot);
 	// ---------- ---------- ----------
@@ -95,7 +95,6 @@ void initEnv() {
 void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5f, 0.4f, 0.8f, 1.0f);
-	glUseProgram(shader.program);
 
 	camera.TimeUpdate();
 
@@ -103,12 +102,12 @@ void renderScene() {
 	glm::mat4 view = camera.GetTransfromMatrix();
 	glm::mat4 model = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 
-
 	for (Object* obj : objects) {
+		glUseProgram(shader.program);
 		obj->drawObject(shader, view, projection, model);
+		glUseProgram(0);;
 	}
 
-	glUseProgram(0);
 	glutSwapBuffers();
 }
 
