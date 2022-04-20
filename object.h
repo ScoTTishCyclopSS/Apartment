@@ -21,6 +21,9 @@ class Object {
 public:
 	Mesh mesh;
 	vec3 position;
+	const char* tex_path;
+
+	const char* name;
 
 	int countAttribsPerVertex;
 	int countVertices;
@@ -35,6 +38,8 @@ public:
 		countTriangles = v_num;
 		vertices = v;
 		triangles = t;
+		name = "";
+		tex_path = "";
 	};
 
 	void initModel(Shader shader);

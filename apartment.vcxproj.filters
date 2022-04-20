@@ -49,9 +49,6 @@
     <ClInclude Include="render_stuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shaders_data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>

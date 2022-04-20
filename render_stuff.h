@@ -16,8 +16,9 @@ public:
 	GLuint texLoc; // textrure coords
 	// ------uniforms locations------
 	GLuint PVMLoc; // pvm matrix
-	GLuint CamLoc; // view/cam matrix
-	GLuint ModLoc; // model matrix
+	GLuint ViewMatLoc; // view/cam matrix
+	GLuint ModMatLoc; // model matrix
+	GLuint NormMatLoc;
 	// ------ material ------
 	GLuint diffLoc;
 	GLuint ambtLoc;

@@ -65,13 +65,30 @@ void initEnv() {
 		bathroom_wallTriangles
 	);
 
-	objects.push_back(bathroom_wall);
-	std::cout << "wall is in array\n";
+	bathroom_wall->name = "Bathroom wall";
+	bathroom_wall->tex_path = "G:/StudyCTU/4th_semestr/PGR/PGR_project/tile/Tiles_037_basecolor.jpg";
+
+	//objects.push_back(bathroom_wall);
+	// ---------- ---------- ----------
+
+	// ---------- test object ----------
+	Object* pot = new Object(
+		pgr::teapotData.nAttribsPerVertex,
+		pgr::teapotData.nVertices,
+		pgr::teapotData.nTriangles,
+		pgr::teapotData.verticesInterleaved,
+		pgr::teapotData.triangles
+	);
+
+	pot->name = "Teeeeea";
+	pot->tex_path = "G:/StudyCTU/4th_semestr/PGR/PGR_project/tile/Tiles_037_basecolor.jpg";
+
+	objects.push_back(pot);
 	// ---------- ---------- ----------
 
 	for (Object* obj : objects) {
 		obj->initModel(shader);
-		std::cout << "wall is initialized\n";
+		std::cout << obj->name << " is initialized\n";
 	}
 }
 
@@ -86,10 +103,12 @@ void renderScene() {
 	glm::mat4 view = camera.GetTransfromMatrix();
 	glm::mat4 model = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 
+
 	for (Object* obj : objects) {
 		obj->drawObject(shader, view, projection, model);
 	}
 
+	glUseProgram(0);
 	glutSwapBuffers();
 }
 
