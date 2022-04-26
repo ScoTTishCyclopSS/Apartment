@@ -146,19 +146,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="apartment.cpp" />
-    <ClCompile Include="bathRoomWall.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="MODELS_AFTER_EXPORT\bathroom_bath.cpp" />
+    <ClCompile Include="MODELS_AFTER_EXPORT\bathroom_drawer.cpp" />
+    <ClCompile Include="MODELS_AFTER_EXPORT\enter_wall.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="render_stuff.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lightShader.frag" />
+    <None Include="lightShader.vert" />
     <None Include="shader.frag" />
     <None Include="shader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bathRoomWall.h" />
     <ClInclude Include="blenderModelsHandler.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="MODELS_AFTER_EXPORT\bathroom_bath.h" />
+    <ClInclude Include="MODELS_AFTER_EXPORT\bathroom_drawer.h" />
+    <ClInclude Include="MODELS_AFTER_EXPORT\enter_wall.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="render_stuff.h" />
   </ItemGroup>

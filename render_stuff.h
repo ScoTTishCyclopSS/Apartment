@@ -25,19 +25,20 @@ public:
 	GLuint specLoc;
 	GLuint shinLoc;
 	// ------ texture ------
-	GLuint useTextureLoc;
-	GLuint texSamplerLoc;
+	GLuint useTexLoc;
+	GLuint texSampLoc;
 	// ------ light ------
-	bool lighting = false;
+	GLuint isLightLoc;
 
-	void init();
+	bool init(std::string vert, std::string frag);
 
 	void setMaterialUniforms(
 		const glm::vec3& ambient,
 		const glm::vec3& diffuse,
 		const glm::vec3& specular,
 		float shiness,
-		GLuint texture
+		GLuint texture,
+		bool isLight
 	);
 
 	void setTransformUniforms(

@@ -33,7 +33,13 @@
     <ClCompile Include="object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bathRoomWall.cpp">
+    <ClCompile Include="MODELS_AFTER_EXPORT\bathroom_bath.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MODELS_AFTER_EXPORT\bathroom_drawer.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MODELS_AFTER_EXPORT\enter_wall.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,6 +48,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lightShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lightShader.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -55,10 +67,16 @@
     <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bathRoomWall.h">
+    <ClInclude Include="blenderModelsHandler.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="blenderModelsHandler.h">
+    <ClInclude Include="MODELS_AFTER_EXPORT\bathroom_bath.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MODELS_AFTER_EXPORT\bathroom_drawer.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MODELS_AFTER_EXPORT\enter_wall.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

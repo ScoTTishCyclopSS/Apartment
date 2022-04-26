@@ -40,6 +40,6 @@ public:
 	// crosshair
 	float x_last = GL_WINDOW_WIDTH / 2;
 	float y_last = GL_WINDOW_HEIGHT / 2;
-	float yaw = -90.0;
+	float yaw = 0.0;
 	float pitch = 0.0;
 };

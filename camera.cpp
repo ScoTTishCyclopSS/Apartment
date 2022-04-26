@@ -1,9 +1,12 @@
 #include "camera.h"
 
+extern int  GL_WINDOW_HEIGHT;
+extern int  GL_WINDOW_WIDTH;
+
 Camera::Camera() {
-	camPosition = vec3(0.0f, 0.0f, 3.0f); // origin
+	camPosition = vec3(-2.0f, 0.0f, 0.0f); // origin
 	camTarget = vec3(0.0f, 0.0f, 0.0f); // target
-	up = vec3(0.0f, 1.0f, 0.0f); // align with y
+	up = vec3(0.0f, 0.0f, 1.0f); // align with z
 
 	camDirection = normalize(camPosition - camTarget); // what direction it is pointing at
 	camRight = normalize(cross(up, camDirection)); // positive x-axis of the camera space
@@ -65,8 +68,8 @@ void Camera::OnMouseMove(int x, int y) {
 	offset_x *= sens; // smooth
 	offset_y *= sens;
 
-	yaw += offset_x;
-	pitch += offset_y;
+	yaw += offset_y;
+	pitch -= offset_x;
 
 	if (pitch > 89.0f)
 		pitch = 89.0f;
@@ -79,6 +82,19 @@ void Camera::OnMouseMove(int x, int y) {
 	newDirection.z = sin(radians(yaw)) * cos(radians(pitch));
 
 	camFront = normalize(newDirection);
+
+	glutPostRedisplay();
+
+	if (x < 100 || x > GL_WINDOW_WIDTH - 100) {  
+		x_last = GL_WINDOW_WIDTH / 2;
+		y_last = GL_WINDOW_HEIGHT / 2;
+		glutWarpPointer(GL_WINDOW_WIDTH / 2, GL_WINDOW_HEIGHT / 2);
+	}
+	else if (y < 100 || y > GL_WINDOW_HEIGHT - 100) {
+		x_last = GL_WINDOW_WIDTH / 2;
+		y_last = GL_WINDOW_HEIGHT / 2;
+		glutWarpPointer(GL_WINDOW_WIDTH / 2, GL_WINDOW_HEIGHT / 2);
+	}
 }
 
 mat4 Camera::GetTransfromMatrix() {
