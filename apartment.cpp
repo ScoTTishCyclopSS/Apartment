@@ -3,6 +3,14 @@
 #include "camera.h"
 #include "blenderModelsHandler.h"
 
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING 1
+
+#include <string>
+#include <iostream>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+
+
 Shader shader;
 Shader lightShader;
 Camera camera;
@@ -16,6 +24,7 @@ void initEnv();
 void renderScene();
 void processNormalKeys(unsigned char key, int x, int y);
 void processMouse(int x, int y);
+void loadAXIS();
 
 void drawAxis() {
 	float line[] = { 0.0, 0.0, 1.0, 1.0 };
@@ -30,6 +39,12 @@ void drawAxis() {
 
 int main(int argc, char** argv)
 {
+
+	std::string path = fs::current_path().string() + "/models/";
+	for (const auto& entry : fs::directory_iterator(path))
+		std::cout << entry.path() << std::endl;
+
+	return 1;
 
 #pragma region Init GLut
 
@@ -77,33 +92,32 @@ void initEnv() {
 		pgr::dieWithError("---------- Light Shaders init error! ----------");
 	std::cout << "++++++++++ Light Shaders init successful! ++++++++++\n\n";
 
-	// ---------- test object ----------
-	//Object* wall = new Object(
-	//	pgr::teapotData.nAttribsPerVertex,
-	//	pgr::teapotData.nVertices,
-	//	pgr::teapotData.nTriangles,
-	//	pgr::teapotData.verticesInterleaved,
-	//	pgr::teapotData.triangles
-	//); // vertex info
-	//wall->name = "Wall";
-	
 
-	//Object *wall = new Object("Wall");
-	//bool sas = wall->loadMesh("G:/StudyCTU/4th_semestr/PGR/apartment/main_wall.obj", lightShader.posLoc, lightShader.nrmLoc, &wall->mesh.vbo, &wall->mesh.ebo, &wall->mesh.vao, &wall->countTriangles);
-	
+	// ---------- ---------- ----------
 
-	Object* wall = new Object(
-		"Wall",
-		main_wallNAttribsPerVertex,
-		main_wallNVertices,
-		main_wallNTriangles,
-		main_wallVertices,
-		main_wallTriangles
+	Object *wall = new Object("Wall");
+	bool sas = wall->loadMesh(
+		"G:/StudyCTU/4th_semestr/PGR/apartment/main_wall.obj", 
+		lightShader.posLoc, 
+		lightShader.nrmLoc, 
+		&wall->mesh.vbo, 
+		&wall->mesh.ebo, 
+		&wall->mesh.vao, 
+		&wall->countTriangles
 	);
+
+	//Object* wall = new Object(
+	//	"Wall",
+	//	main_wallNAttribsPerVertex,
+	//	main_wallNVertices,
+	//	main_wallNTriangles,
+	//	main_wallVertices,
+	//	main_wallTriangles
+	//);
 
 	wall->mesh.texture = pgr::createTexture("textures/blue.png");
 	
-	////material
+	//material
 	//wall->material.ambient = vec3(1.0f, 0.0f, 1.0f);
 	//wall->material.diffuse = vec3(1.0f, 0.0f, 1.0f);
 	//wall->material.specular = vec3(1.0f, 0.0f, 1.0f);
@@ -111,57 +125,19 @@ void initEnv() {
 
 	objects.push_back(wall);
 
+	return;
+
 	// ---------- ---------- ----------
 
-	Object* x = new Object(
-		"X",
-		pgr::cubeData.nAttribsPerVertex,
-		pgr::cubeData.nVertices,
-		pgr::cubeData.nTriangles,
-		pgr::cubeData.verticesInterleaved,
-		pgr::cubeData.triangles
-	);
-
-	x->position = vec3(3.0, 0.0, 0.0);
-	x->scale = vec3(0.05);
-	x->mesh.texture = pgr::createTexture("textures/x.png");
-	objects.push_back(x);
-
-	Object* y = new Object(
-		"Y",
-		pgr::cubeData.nAttribsPerVertex,
-		pgr::cubeData.nVertices,
-		pgr::cubeData.nTriangles,
-		pgr::cubeData.verticesInterleaved,
-		pgr::cubeData.triangles
-	);
-
-	y->position = vec3(0.0, 3.0, 0.0);
-	y->scale = vec3(0.05);
-	y->mesh.texture = pgr::createTexture("textures/y.png");
-	objects.push_back(y);
-
-	Object* z = new Object(
-		"Z",
-		pgr::cubeData.nAttribsPerVertex,
-		pgr::cubeData.nVertices,
-		pgr::cubeData.nTriangles,
-		pgr::cubeData.verticesInterleaved,
-		pgr::cubeData.triangles
-	);
-
-	z->position = vec3(0.0, 0.0, 3.0);
-	z->scale = vec3(0.05);
-	z->mesh.texture = pgr::createTexture("textures/z.png");
-	objects.push_back(z);
+	loadAXIS();
 
 
 	for (Object* obj : objects) {
-		if (obj->isLightsource)
-			obj->initModel(shader);
-		else
-			obj->initModel(lightShader);
-		std::cout << "--> " << obj->name << " model is initialized\n";
+			if (obj->isLightsource)
+				obj->initModel(shader);
+			else
+				obj->initModel(lightShader);
+			std::cout << "--> " << obj->name << " model is initialized\n";
 	}
 }
 
@@ -203,4 +179,48 @@ void processNormalKeys(unsigned char key, int x, int y) {
 void processMouse(int x, int y) {
 	camera.OnMouseMove(x, y);
 	// warp pointer
+}
+
+void loadAXIS() {
+	Object* x = new Object(
+		"X",
+		pgr::cubeData.nAttribsPerVertex,
+		pgr::cubeData.nVertices,
+		pgr::cubeData.nTriangles,
+		pgr::cubeData.verticesInterleaved,
+		pgr::cubeData.triangles
+	);
+
+	x->position = vec3(3.0, 0.0, 0.0);
+	x->scale = vec3(0.05);
+	x->mesh.texture = pgr::createTexture("textures/x.png");
+	objects.push_back(x);
+
+	Object* y = new Object(
+		"Y",
+		pgr::cubeData.nAttribsPerVertex,
+		pgr::cubeData.nVertices,
+		pgr::cubeData.nTriangles,
+		pgr::cubeData.verticesInterleaved,
+		pgr::cubeData.triangles
+	);
+
+	y->position = vec3(0.0, 3.0, 0.0);
+	y->scale = vec3(0.05);
+	y->mesh.texture = pgr::createTexture("textures/y.png");
+	objects.push_back(y);
+
+	Object* z = new Object(
+		"Z",
+		pgr::cubeData.nAttribsPerVertex,
+		pgr::cubeData.nVertices,
+		pgr::cubeData.nTriangles,
+		pgr::cubeData.verticesInterleaved,
+		pgr::cubeData.triangles
+	);
+
+	z->position = vec3(0.0, 0.0, 3.0);
+	z->scale = vec3(0.05);
+	z->mesh.texture = pgr::createTexture("textures/z.png");
+	objects.push_back(z);
 }

@@ -42,6 +42,8 @@ public:
 
 	Object(const char* name_) {
 		name = name_;
+		position = vec3(0.0f);
+		scale = vec3(1.0f);
 	};
 
 	Object(const char* name_, const int attPerV, const int v_num, const int t_num, const float* v, const unsigned* t) {
