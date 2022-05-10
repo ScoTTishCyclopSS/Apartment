@@ -24,15 +24,11 @@ public:
 
 	// camera
 	vec3 camPosition;
-	vec3 camTarget;
-	vec3 camDirection;
-	vec3 up;
-	vec3 camRight;
-	vec3 camUp;
 	vec3 camFront;
+	vec3 camUp;
 
 	// calculations
-	float speed = 1.0;
+	float speed = 0.05;
 	float angle = 0.0;
 	float lastTime = 0.0;
 	float deltaTime = 0.0; // time between current frame and last frame

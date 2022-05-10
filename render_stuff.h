@@ -11,24 +11,26 @@ public:
 	GLuint program; // id
 	// ------vertex attribute locations------
 	GLuint posLoc; // position 
-	GLuint rgbLoc; // color
 	GLuint nrmLoc; // normal
 	GLuint texLoc; // textrure coords
+	GLuint tnLoc; // tangent coords
+	GLuint btnLoc; // bitangent coords
 	// ------uniforms locations------
-	GLuint PVMLoc; // pvm matrix
 	GLuint ViewMatLoc; // view/cam matrix
 	GLuint ModMatLoc; // model matrix
-	GLuint NormMatLoc;
+	GLuint NormMatLoc; // normal matrix
+	GLuint ProjMatLoc; // projection matrix
 	// ------ material ------
 	GLuint diffLoc;
 	GLuint ambtLoc;
 	GLuint specLoc;
 	GLuint shinLoc;
 	// ------ texture ------
-	GLuint useTexLoc;
-	GLuint texSampLoc;
+	GLuint texSampLoc; // tex sampler loc
+	GLuint normSampLoc; // tex sampler loc
 	// ------ light ------
-	GLuint isLightLoc;
+	GLuint lightPosLoc; // light position
+	GLuint viewPosLoc; // viewPosition
 
 	bool init(std::string vert, std::string frag);
 
@@ -38,6 +40,7 @@ public:
 		const glm::vec3& specular,
 		float shiness,
 		GLuint texture,
+		GLuint normal,
 		bool isLight
 	);
 
@@ -47,6 +50,8 @@ public:
 		const glm::mat4& projectionMatrix
 	);
 };
+
+GLuint loadCubemap(std::vector<std::string> faces);
 
 #endif // !__RENDER_STUFF_H
 

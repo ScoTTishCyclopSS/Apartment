@@ -1,60 +1,127 @@
 #include "object.h"
 
-bool Object::loadMesh(const std::string& fileName, GLuint positionL, GLuint normalL, GLuint* vbo, GLuint* eao, GLuint* vao, int* numTriangles) {
+bool Object::loadMesh(const std::string& fileName, Shader shader) {
 	Assimp::Importer importer;
-	importer.SetPropertyInteger(AI_CONFIG_PP_PTV_NORMALIZE, 1); // Unitize object in size (scale the model to fit into (-1..1)^3)
+
+	// Unitize object in size (scale the model to fit into (-1..1)^3)
+	importer.SetPropertyInteger(AI_CONFIG_PP_PTV_NORMALIZE, 1);
+
 	// Load asset from the file - you can play with various processing steps
 	const aiScene* scn = importer.ReadFile(fileName.c_str(), 0
 		| aiProcess_Triangulate             // Triangulate polygons (if any).
-		| aiProcess_PreTransformVertices    // Transforms scene hierarchy into one root with geometry-leafs only. For more see Doc.
 		| aiProcess_GenSmoothNormals        // Calculate normals per vertex.
-		| aiProcess_JoinIdenticalVertices);
+		| aiProcess_JoinIdenticalVertices
+		//| aiProcess_FlipUVs
+		| aiProcess_CalcTangentSpace
+	);
+
 	// abort if the loader fails
-	if (!scn) {
+	if (scn == NULL || scn->mNumMeshes != 1) {
 		std::cerr << "assimp error: " << importer.GetErrorString() << std::endl;
 		return false;
 	}
-	// some formats store whole scene (multiple meshes and materials, lights, cameras, ...) in one file, we cannot handle that in our simplified example
-	if (scn->mNumMeshes != 1) {
-		std::cerr << "this simplified loader can only process files with only one mesh" << std::endl;
-		return false;
-	}
-	// in this phase we know we have one mesh in our loaded scene, we can directly copy its data to opengl ...
-	const aiMesh* mesh = scn->mMeshes[0];
+
+	const aiMesh* ai_mesh = scn->mMeshes[0];
+	countAttribsPerVertex = 14; // 3 pos + 3 norm + 2 uv + 3 tn + 3 bitn
 
 	// vertex buffer object, store all vertex positions and normals
-	glGenBuffers(1, vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, *vbo);
-	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * mesh->mNumVertices * 2, 0, GL_STATIC_DRAW); // allocate memory for vertices and normals
-	// first store all vertices
-	glBufferSubData(GL_ARRAY_BUFFER, 0, 3 * sizeof(float) * mesh->mNumVertices, mesh->mVertices);
-	// then all normals
-	glBufferSubData(GL_ARRAY_BUFFER, 3 * sizeof(float) * mesh->mNumVertices, 3 * sizeof(float) * mesh->mNumVertices, mesh->mNormals);
+	glGenBuffers(1, &mesh.vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
+
+	// allocate memory for vertices, normals, and texture coordinates
+	glBufferData(GL_ARRAY_BUFFER, countAttribsPerVertex * sizeof(float) * ai_mesh->mNumVertices, 0, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, 3 * sizeof(float) * ai_mesh->mNumVertices, ai_mesh->mVertices);
+	glBufferSubData(GL_ARRAY_BUFFER, 3 * sizeof(float) * ai_mesh->mNumVertices, 3 * sizeof(float) * ai_mesh->mNumVertices, ai_mesh->mNormals);
+
+	// just texture 0 for now
+	float* textureCoords = new float[2 * ai_mesh->mNumVertices];  // 2 floats per vertex
+	float* currentTextureCoord = textureCoords;
+	aiVector3D vect;
+
+	// just tangent 0 for now
+	float* tangentCoords = new float[3 * ai_mesh->mNumVertices];  // 3 floats per vertex
+	float* currTangentCoord = tangentCoords;
+
+	// just tangent 0 for now
+	float* bitangentCoords = new float[3 * ai_mesh->mNumVertices];  // 3 floats per vertex
+	float* currBitangentCoord = bitangentCoords;
+
+	if (ai_mesh->HasTextureCoords(0)) {
+
+		for (unsigned int idx = 0; idx < ai_mesh->mNumVertices; idx++) {
+			vect = (ai_mesh->mTextureCoords[0])[idx];
+			*currentTextureCoord++ = vect.x;
+			*currentTextureCoord++ = vect.y;
+		}
+	}
+
+	if (ai_mesh->HasTangentsAndBitangents()) {
+
+		for (unsigned int idx = 0; idx < ai_mesh->mNumVertices; idx++) {
+			*currTangentCoord++ = ai_mesh->mTangents[idx].x;
+			*currTangentCoord++ = ai_mesh->mTangents[idx].y;
+			*currTangentCoord++ = ai_mesh->mTangents[idx].z;
+		}
+
+		for (unsigned int idx = 0; idx < ai_mesh->mNumVertices; idx++) {
+			*currBitangentCoord++ = ai_mesh->mBitangents[idx].x;
+			*currBitangentCoord++ = ai_mesh->mBitangents[idx].y;
+			*currBitangentCoord++ = ai_mesh->mBitangents[idx].z;
+		}
+	}
+
+	glBufferSubData(GL_ARRAY_BUFFER, 6 * sizeof(float) * ai_mesh->mNumVertices, 2 * sizeof(float) * ai_mesh->mNumVertices, textureCoords);
+	glBufferSubData(GL_ARRAY_BUFFER, 8 * sizeof(float) * ai_mesh->mNumVertices, 3 * sizeof(float) * ai_mesh->mNumVertices, tangentCoords);
+	glBufferSubData(GL_ARRAY_BUFFER, 11 * sizeof(float) * ai_mesh->mNumVertices, 3 * sizeof(float) * ai_mesh->mNumVertices, bitangentCoords);
+
+	delete[] bitangentCoords, tangentCoords, textureCoords;
+	
 
 	// copy all mesh faces into one big array (assimp supports faces with ordinary number of vertices, we use only 3 -> triangles)
-	unsigned* indices = new unsigned[mesh->mNumFaces * 3];
-	for (unsigned f = 0; f < mesh->mNumFaces; ++f) {
-		indices[f * 3 + 0] = mesh->mFaces[f].mIndices[0];
-		indices[f * 3 + 1] = mesh->mFaces[f].mIndices[1];
-		indices[f * 3 + 2] = mesh->mFaces[f].mIndices[2];
+	unsigned int* indices = new unsigned int[ai_mesh->mNumFaces * 3];
+	for (unsigned int f = 0; f < ai_mesh->mNumFaces; ++f) {
+		indices[f * 3 + 0] = ai_mesh->mFaces[f].mIndices[0];
+		indices[f * 3 + 1] = ai_mesh->mFaces[f].mIndices[1];
+		indices[f * 3 + 2] = ai_mesh->mFaces[f].mIndices[2];
 	}
-	// copy our temporary index array to opengl and free the array
-	glGenBuffers(1, eao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *eao);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(unsigned) * mesh->mNumFaces, indices, GL_STATIC_DRAW);
+
+	// copy our temporary index array to OpenGL and free the array
+	glGenBuffers(1, &mesh.ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(unsigned) * ai_mesh->mNumFaces, indices, GL_STATIC_DRAW);
+
 	delete[] indices;
 
-	glGenVertexArrays(1, vao);
-	glBindVertexArray(*vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *eao); // bind our element array buffer (indices) to vao
-	glBindBuffer(GL_ARRAY_BUFFER, *vbo);
-	glEnableVertexAttribArray(positionL);
-	glVertexAttribPointer(positionL, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(normalL);
-	glVertexAttribPointer(normalL, 3, GL_FLOAT, GL_FALSE, 0, (void*)(3 * sizeof(float) * mesh->mNumVertices));
+	glGenVertexArrays(1, &mesh.vao);
+	glBindVertexArray(mesh.vao);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ebo); // bind our element array buffer (indices) to vao
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
+
+	glEnableVertexAttribArray(shader.posLoc);
+	glVertexAttribPointer(shader.posLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	CHECK_GL_ERROR();
+
+	glEnableVertexAttribArray(shader.nrmLoc);
+	glVertexAttribPointer(shader.nrmLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(3 * sizeof(float) * ai_mesh->mNumVertices));
+	CHECK_GL_ERROR();
+
+	glEnableVertexAttribArray(shader.texLoc);
+	glVertexAttribPointer(shader.texLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)(6 * sizeof(float) * ai_mesh->mNumVertices));
+	CHECK_GL_ERROR();
+
+	glEnableVertexAttribArray(shader.tnLoc);
+	glVertexAttribPointer(shader.tnLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(8 * sizeof(float) * ai_mesh->mNumVertices));
+	CHECK_GL_ERROR();
+
+	glEnableVertexAttribArray(shader.btnLoc);
+	glVertexAttribPointer(shader.btnLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(11 * sizeof(float) * ai_mesh->mNumVertices));
+	CHECK_GL_ERROR();
+
 	glBindVertexArray(0);
 
-	*numTriangles = mesh->mNumFaces;
+	countTriangles = ai_mesh->mNumFaces;
+
 	return true;
 }
 
@@ -111,13 +178,13 @@ void Object::drawObject(Shader shader, const glm::mat4& viewMat, const glm::mat4
 		projectMat
 	);
 
-	// send material info
 	shader.setMaterialUniforms(
 		material.ambient, 
 		material.diffuse,
 		material.specular, 
 		material.shiness, 
 		mesh.texture,
+		mesh.normal,
 		isLightsource
 	);
 

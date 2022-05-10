@@ -33,13 +33,10 @@
     <ClCompile Include="object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MODELS_AFTER_EXPORT\bathroom_bath.cpp">
+    <ClCompile Include="models_cpp\enter_wall.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="MODELS_AFTER_EXPORT\bathroom_drawer.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MODELS_AFTER_EXPORT\enter_wall.cpp">
+    <ClCompile Include="models_cpp\skybox.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,6 +53,15 @@
     <None Include="lightShader.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="sky.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="sky.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="models_obj\modelsData.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render_stuff.h">
@@ -70,13 +76,13 @@
     <ClInclude Include="blenderModelsHandler.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="MODELS_AFTER_EXPORT\bathroom_bath.h">
+    <ClInclude Include="json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="models_cpp\enter_wall.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="MODELS_AFTER_EXPORT\bathroom_drawer.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MODELS_AFTER_EXPORT\enter_wall.h">
+    <ClInclude Include="models_cpp\skybox.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

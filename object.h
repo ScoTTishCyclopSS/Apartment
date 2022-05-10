@@ -1,5 +1,6 @@
 #pragma once
 #include "render_stuff.h"
+#include <iostream>
 
 using namespace glm;
 
@@ -9,6 +10,8 @@ public:
 	GLuint ebo;
 	GLuint vao;
 	GLuint texture;
+	GLuint normal;
+	std::vector<vec3> tangents;
 };
 
 class Material {
@@ -22,10 +25,8 @@ public:
 
 class Object {
 public:
-	const char* name;
-	const char* tex_path;
+	std::string name;
 	bool isLightsource;
-
 	Mesh mesh;
 	Material material;
 
@@ -38,15 +39,17 @@ public:
 	vec3 position;
 	vec3 scale;
 
-// methods 
+	// methods 
 
-	Object(const char* name_) {
+	Object(std::string name_) {
 		name = name_;
 		position = vec3(0.0f);
 		scale = vec3(1.0f);
+		mesh.texture = 0;
+		mesh.normal = 0;
 	};
 
-	Object(const char* name_, const int attPerV, const int v_num, const int t_num, const float* v, const unsigned* t) {
+	Object(std::string name_, const int attPerV, const int v_num, const int t_num, const float* v, const unsigned* t) {
 		position = vec3(0.0f);
 		scale = vec3(1.0f);
 		countAttribsPerVertex = attPerV;
@@ -55,7 +58,6 @@ public:
 		vertices = v;
 		triangles = t;
 		name = name_;
-		tex_path = "";
 		isLightsource = false;
 	};
 
@@ -63,6 +65,5 @@ public:
 
 	void drawObject(Shader shader, const glm::mat4& viewMat, const glm::mat4& projectMat, const glm::mat4& modelMat);
 
-	bool loadMesh(const std::string& fileName, GLuint positionL, GLuint normalL, GLuint* vbo, GLuint* eao, GLuint* vao, int* numTriangles);
-
+	bool loadMesh(const std::string& fileName, Shader shader);
 };

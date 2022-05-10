@@ -1,26 +1,16 @@
 #version 330
 
-struct Material {      // structure that describes currently used material
-  vec3  ambient;       // ambient component
-  vec3  diffuse;       // diffuse component
-  vec3  specular;      // specular component
-  float shininess;     // sharpness of specular reflection
-  bool  useTexture;    // defines whether the texture is used or not
-};
+layout (location = 0) in vec3 aPos;
+layout (location = 2) in vec2 aTexCoord;
 
-uniform mat4 PVM;   
 uniform mat4 viewMat;       
-uniform mat4 modelMat;       
-uniform mat4 normMat;  
+uniform mat4 projMat;       
+uniform mat4 modelMat;
 
-in vec3 position;
-in vec3 normal;
-in vec2 texCoord;
-
-out vec2 out_TexCoord;
+out vec2 texCoord;
 
 void main()
 {
-    gl_Position = PVM * vec4(position, 1);
-    out_TexCoord = vec2(texCoord);
+    gl_Position = projMat * viewMat * modelMat * vec4(aPos, 1.0);
+    texCoord = vec2(aTexCoord);
 }
