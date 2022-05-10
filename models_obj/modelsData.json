@@ -95,8 +95,8 @@
 			"y": -1.02,
 			"z": 0.05
 		},
-		"texture": "bedroom_desc.png",
-		"normal": "bedroom_desc_norm.png"
+		"texture": "bedroom_desk.png",
+		"normal": "bedroom_desk_norm.png"
 	},
 	"bedroom_lamp.obj": {
 		"position": {
