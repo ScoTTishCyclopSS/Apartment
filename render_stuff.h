@@ -3,51 +3,90 @@
 
 #include <iostream>
 #include "pgr.h"
+#include "light.h"
 
 using namespace glm;
+
+struct pointLight
+{
+	GLuint diffPos;
+	GLuint ambPos;
+	GLuint specPos;
+
+	GLuint conPos;
+	GLuint linPos;
+	GLuint quadPos;
+
+	GLuint blinPos;
+	GLuint posPos;
+};
+
+struct dirLight
+{
+	GLuint diffPos;
+	GLuint ambPos;
+	GLuint specPos;
+
+	GLuint direction;
+};
+
+struct spotLight
+{
+	GLuint diffPos;
+	GLuint ambPos;
+	GLuint specPos;
+
+	GLuint direction;
+};
 
 class Shader {
 public:
 	GLuint program; // id
-	// ------vertex attribute locations------
+	// ---- vertex attribute locations ----
 	GLuint posLoc; // position 
 	GLuint nrmLoc; // normal
-	GLuint texLoc; // textrure coords
-	GLuint tnLoc; // tangent coords
-	GLuint btnLoc; // bitangent coords
-	// ------uniforms locations------
+	GLuint uvLoc; // textrure coords
+	GLuint tnLoc; // tangent 
+	GLuint btnLoc; // bitangent 
+	GLuint nextPosLoc; // bones with influence to vertex
+	GLuint tPos;
+
+	// ---- uniforms locations ----
 	GLuint ViewMatLoc; // view/cam matrix
 	GLuint ModMatLoc; // model matrix
 	GLuint NormMatLoc; // normal matrix
 	GLuint ProjMatLoc; // projection matrix
-	// ------ material ------
-	GLuint diffLoc;
-	GLuint ambtLoc;
-	GLuint specLoc;
-	GLuint shinLoc;
-	// ------ texture ------
+	GLuint FinBonesLoc; // final bones matricies
+
+	// ---- texture ----
 	GLuint texSampLoc; // tex sampler loc
 	GLuint normSampLoc; // tex sampler loc
-	// ------ light ------
-	GLuint lightPosLoc; // light position
+	GLuint roughSampLoc; // tex sampler loc
+
+	// ---- light ----
 	GLuint viewPosLoc; // viewPosition
+
+	// ---- point light ----
+	pointLight pointLightProps;
+	dirLight dirLightProps;
+	spotLight spotLightProps;
 
 	bool init(std::string vert, std::string frag);
 
 	void setMaterialUniforms(
-		const glm::vec3& ambient,
-		const glm::vec3& diffuse,
-		const glm::vec3& specular,
-		float shiness,
 		GLuint texture,
-		GLuint normal,
-		bool isLight
+		GLuint normal
 	);
 
 	void setTransformUniforms(
 		const glm::mat4& modelMatrix,
 		const glm::mat4& viewMatrix,
 		const glm::mat4& projectionMatrix
+	);
+
+	void setPointLightUniforms(
+		int count,
+		std::vector<PointLight*> pointLights
 	);
 };
 

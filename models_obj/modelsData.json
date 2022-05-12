@@ -5,8 +5,7 @@
 			"y": -0.55,
 			"z": 0.05
 		},
-		"texture": "bathroom_bath.png",
-		"normal": "bathroom_bath_norm.png"
+		"texture": "bathroom_bath.png"
 	},
 	"bathroom_drawer.obj": {
 		"position": {
@@ -14,8 +13,7 @@
 			"y": -1.5,
 			"z": 0.17
 		},
-		"texture": "bathroom_drawer.png",
-		"normal": "bathroom_drawer_norm.png"
+		"texture": "bathroom_drawer.png"
 	},
 	"bathroom_floor.obj": {
 		"position": {
@@ -23,8 +21,7 @@
 			"y": 0,
 			"z": 0
 		},
-		"texture": "bathroom_floor.png",
-		"normal": "bathroom_floor_norm.png"
+		"texture": "bathroom_floor.png"
 	},
 	"bathroom_mirror.obj": {
 		"position": {
@@ -32,8 +29,7 @@
 			"y": -1.5,
 			"z": 0.68
 		},
-		"texture": "bathroom_mirror.png",
-		"normal": "bathroom_mirror_norm.png"
+		"texture": "bathroom_mirror.png"
 	},
 	"bathroom_rug.obj": {
 		"position": {
@@ -41,8 +37,7 @@
 			"y": -0.6,
 			"z": 0.05
 		},
-		"texture": "bathroom_rug.png",
-		"normal": "bathroom_rug_norm.png"
+		"texture": "bathroom_rug.png"
 	},
 	"bathroom_shelf.obj": {
 		"position": {
@@ -50,8 +45,7 @@
 			"y": -0.03,
 			"z": 0.6
 		},
-		"texture": "bathroom_shelf.png",
-		"normal": "bathroom_shelf_norm.png"
+		"texture": "bathroom_shelf.png"
 	},
 	"bathroom_shower.obj": {
 		"position": {
@@ -59,8 +53,7 @@
 			"y": -1.5,
 			"z": 0.65
 		},
-		"texture": "bathroom_shower.png",
-		"normal": "bathroom_shower_norm.png"
+		"texture": "bathroom_shower.png"
 	},
 	"bathroom_toilet.obj": {
 		"position": {
@@ -68,8 +61,7 @@
 			"y": -1.2,
 			"z": 0.05
 		},
-		"texture": "bathroom_toilet.png",
-		"normal": "bathroom_toilet_norm.png"
+		"texture": "bathroom_toilet.png"
 	},
 	"bathroom_wall.obj": {
 		"position": {
@@ -77,8 +69,15 @@
 			"y": 0,
 			"z": 0
 		},
-		"texture": "bathroom_wall.png",
-		"normal": "bathroom_wall_norm.png"
+		"texture": "bathroom_wall.png"
+	},
+	"bathroom_door.obj": {
+		"position": {
+			"x": -4.039,
+			"y": 0.065,
+			"z": 0
+		},
+		"texture": "bedroom_door.png"
 	},
 	"bedroom_bed.obj": {
 		"position": {
@@ -86,8 +85,7 @@
 			"y": -1.4,
 			"z": 0.05
 		},
-		"texture": "bedroom_bed.png",
-		"normal": "bedroom_bed_norm.png"
+		"texture": "bedroom_bed.png"
 	},
 	"bedroom_desk.obj": {
 		"position": {
@@ -95,8 +93,7 @@
 			"y": -1.02,
 			"z": 0.05
 		},
-		"texture": "bedroom_desk.png",
-		"normal": "bedroom_desk_norm.png"
+		"texture": "bedroom_desk.png"
 	},
 	"bedroom_lamp.obj": {
 		"position": {
@@ -104,8 +101,7 @@
 			"y": -1.31,
 			"z": 0.4345
 		},
-		"texture": "bedroom_lamp.png",
-		"normal": "bedroom_lamp_norm.png"
+		"texture": "bedroom_lamp.png"
 	},
 	"bedroom_mouse.obj": {
 		"position": {
@@ -113,8 +109,7 @@
 			"y": -1.2,
 			"z": 0.4345
 		},
-		"texture": "bedroom_mouse.png",
-		"normal": "bedroom_mouse_norm.png"
+		"texture": "bedroom_mouse.png"
 	},
 	"bedroom_pc.obj": {
 		"position": {
@@ -122,8 +117,7 @@
 			"y": -1.392,
 			"z": 0.4345
 		},
-		"texture": "bedroom_pc.png",
-		"normal": "bedroom_pc_norm.png"
+		"texture": "bedroom_pc.png"
 	},
 	"bedroom_chair.obj": {
 		"position": {
@@ -131,8 +125,7 @@
 			"y": -1.0,
 			"z": 0.05
 		},
-		"texture": "bedroom_chair.png",
-		"normal": "bedroom_chair_norm.png"
+		"texture": "bedroom_chair.png"
 	},
 	"bedroom_sofa.obj": {
 		"position": {
@@ -140,8 +133,47 @@
 			"y": 1.48,
 			"z": 0.05
 		},
-		"texture": "bedroom_sofa.png",
-		"normal": "bedroom_sofa_norm.png"
+		"texture": "bedroom_sofa.png"
+	},
+	"bedroom_door.obj": {
+		"position": {
+			"x": -0.069,
+			"y": 0.285,
+			"z": 0.0
+		},
+		"texture": "bedroom_door.png"
+	},
+	"bedroom_partition.obj": {
+		"position": {
+			"x": -1.38,
+			"y": -0.05,
+			"z": 1.12
+		},
+		"texture": "bedroom_partition.png"
+	},
+	"balcon_floor.obj": {
+		"position": {
+			"x": 0.0,
+			"y": 1.41,
+			"z": 0.0
+		},
+		"texture": "balcon_floor.png"
+	},
+	"balcon_box1.obj": {
+		"position": {
+			"x": 0.6,
+			"y": 1.2,
+			"z": 0.05
+		},
+		"texture": "balcon_box1.png"
+	},
+	"balcon_box2.obj": {
+		"position": {
+			"x": 0.1,
+			"y": 1.2,
+			"z": 0.05
+		},
+		"texture": "balcon_box2.png"
 	},
 	"enter_bench.obj": {
 		"position": {
@@ -149,17 +181,7 @@
 			"y": 1.49,
 			"z": 0.05
 		},
-		"texture": "enter_bench.png",
-		"normal": "enter_bench_norm.png"
-	},
-	"enter_closet.obj": {
-		"position": {
-			"x": -3.72,
-			"y": 1.05,
-			"z": -0.05
-		},
-		"texture": "enter_closet.png",
-		"normal": "enter_closet_norm.png"
+		"texture": "enter_bench.png"
 	},
 	"enter_door.obj": {
 		"position": {
@@ -167,8 +189,15 @@
 			"y": 0.715,
 			"z": 0.0
 		},
-		"texture": "enter_door.png",
-		"normal": "enter_door_norm.png"
+		"texture": "enter_door.png"
+	},
+	"enter_closet.obj": {
+		"position": {
+			"x": -3.72,
+			"y": 1.05,
+			"z": -0.05
+		},
+		"texture": "enter_closet.png"
 	},
 	"enter_floor.obj": {
 		"position": {
@@ -176,8 +205,7 @@
 			"y": 1.5,
 			"z": 0
 		},
-		"texture": "enter_floor.png",
-		"normal": "enter_floor_norm.png"
+		"texture": "enter_floor.png"
 	},
 	"enter_paint.obj": {
 		"position": {
@@ -185,8 +213,7 @@
 			"y": 0.05,
 			"z": 0.76
 		},
-		"texture": "enter_paint.png",
-		"normal": "enter_paint_norm.png"
+		"texture": "enter_paint.png"
 	},
 	"enter_rack.obj": {
 		"position": {
@@ -194,8 +221,7 @@
 			"y": 1.5,
 			"z": 1.0
 		},
-		"texture": "enter_rack.png",
-		"normal": "enter_rack_norm.png"
+		"texture": "enter_rack.png"
 	},
 	"enter_rug.obj": {
 		"position": {
@@ -203,8 +229,7 @@
 			"y": 0.78,
 			"z": 0.05
 		},
-		"texture": "enter_rug.png",
-		"normal": "enter_rug_norm.png"
+		"texture": "enter_rug.png"
 	},
 	"enter_shoe.obj": {
 		"position": {
@@ -212,8 +237,7 @@
 			"y": 0.05,
 			"z": 0.05
 		},
-		"texture": "enter_shoe.png",
-		"normal": "enter_shoe_norm.png"
+		"texture": "enter_shoe.png"
 	},
 	"enter_wall.obj": {
 		"position": {
@@ -221,8 +245,7 @@
 			"y": 0,
 			"z": 0
 		},
-		"texture": "enter_wall.png",
-		"normal": "enter_wall_norm.png"
+		"texture": "enter_wall.png"
 	},
 	"enter_wall_s1.obj": {
 		"position": {
@@ -230,8 +253,7 @@
 			"y": 0.4032,
 			"z": 0.0
 		},
-		"texture": "enter_wall_s1.png",
-		"normal": "enter_door_norm.png"
+		"texture": "enter_wall_s1.png"
 	},
 	"enter_wall_s2.obj": {
 		"position": {
@@ -239,8 +261,7 @@
 			"y": 0.4032,
 			"z": 1.16
 		},
-		"texture": "enter_wall_s2.png",
-		"normal": "enter_door_norm.png"
+		"texture": "enter_wall_s2.png"
 	},
 	"enter_wall_s3.obj": {
 		"position": {
@@ -248,8 +269,7 @@
 			"y": 1.05,
 			"z": 0.0
 		},
-		"texture": "enter_wall_s3.png",
-		"normal": "enter_door_norm.png"
+		"texture": "enter_wall_s3.png"
 	},
 	"kitchen_cabinet_long.obj": {
 		"position": {
@@ -257,8 +277,7 @@
 			"y": 1.5,
 			"z": 1.032
 		},
-		"texture": "kitchen_cabinet_long.png",
-		"normal": "kitchen_cabinet_long_norm.png"
+		"texture": "kitchen_cabinet_long.png"
 	},
 	"kitchen_cabinet_small.obj": {
 		"position": {
@@ -266,8 +285,7 @@
 			"y": 1.5,
 			"z": 1.032
 		},
-		"texture": "kitchen_cabinet_small.png",
-		"normal": "kitchen_cabinet_small_norm.png"
+		"texture": "kitchen_cabinet_small.png"
 	},
 	"kitchen_cabinet_small2.obj": {
 		"position": {
@@ -275,8 +293,7 @@
 			"y": 1.5,
 			"z": 1.032
 		},
-		"texture": "kitchen_cabinet_small.png",
-		"normal": "kitchen_cabinet_small_norm.png"
+		"texture": "kitchen_cabinet_small.png"
 	},
 	"kitchen_coffee.obj": {
 		"position": {
@@ -284,8 +301,7 @@
 			"y": 1.42,
 			"z": 0.4645
 		},
-		"texture": "kitchen_coffee.png",
-		"normal": "kitchen_coffee_norm.png"
+		"texture": "kitchen_coffee.png"
 	},
 	"kitchen_cup.obj": {
 		"position": {
@@ -293,8 +309,7 @@
 			"y": 1.42,
 			"z": 0.4645
 		},
-		"texture": "kitchen_cup.png",
-		"normal": "kitchen_cup_norm.png"
+		"texture": "kitchen_cup.png"
 	},
 	"kitchen_drawer_double.obj": {
 		"position": {
@@ -302,8 +317,7 @@
 			"y": 0.05,
 			"z": 0.77
 		},
-		"texture": "kitchen_drawer_double.png",
-		"normal": "kitchen_drawer_double_norm.png"
+		"texture": "kitchen_drawer_double.png"
 	},
 	"kitchen_drawer_left.obj": {
 		"position": {
@@ -311,8 +325,7 @@
 			"y": 0.05,
 			"z": 0.692
 		},
-		"texture": "kitchen_drawer_left.png",
-		"normal": "kitchen_drawer_left_norm.png"
+		"texture": "kitchen_drawer_left.png"
 	},
 	"kitchen_drawer_mid.obj": {
 		"position": {
@@ -320,8 +333,7 @@
 			"y": 0.05,
 			"z": 0.05
 		},
-		"texture": "kitchen_drawer_mid.png",
-		"normal": "kitchen_drawer_mid_norm.png"
+		"texture": "kitchen_drawer_mid.png"
 	},
 	"kitchen_fridge.obj": {
 		"position": {
@@ -329,8 +341,7 @@
 			"y": 1.15,
 			"z": 0.05
 		},
-		"texture": "kitchen_fridge.png",
-		"normal": "kitchen_fridge_norm.png"
+		"texture": "kitchen_fridge.png"
 	},
 	"kitchen_furnace.obj": {
 		"position": {
@@ -338,8 +349,7 @@
 			"y": 0.05,
 			"z": 0.05
 		},
-		"texture": "kitchen_furnace.png",
-		"normal": "kitchen_furnace_norm.png"
+		"texture": "kitchen_furnace.png"
 	},
 	"kitchen_hood.obj": {
 		"position": {
@@ -347,8 +357,7 @@
 			"y": 0.05,
 			"z": 0.76
 		},
-		"texture": "kitchen_hood.png",
-		"normal": "kitchen_hood_norm.png"
+		"texture": "kitchen_hood.png"
 	},
 	"kitchen_microwave.obj": {
 		"position": {
@@ -356,8 +365,7 @@
 			"y": 0.35,
 			"z": 0.47
 		},
-		"texture": "kitchen_microwave.png",
-		"normal": "kitchen_microwave_norm.png"
+		"texture": "kitchen_microwave.png"
 	},
 	"kitchen_plant.obj": {
 		"position": {
@@ -365,8 +373,7 @@
 			"y": 1.4,
 			"z": 0.4645
 		},
-		"texture": "kitchen_plant.png",
-		"normal": "kitchen_plant_norm.png"
+		"texture": "kitchen_plant.png"
 	},
 	"kitchen_sink.obj": {
 		"position": {
@@ -374,8 +381,7 @@
 			"y": 0.05,
 			"z": 0.05
 		},
-		"texture": "kitchen_sink.png",
-		"normal": "kitchen_sink_norm.png"
+		"texture": "kitchen_sink.png"
 	},
 	"kitchen_stove.obj": {
 		"position": {
@@ -383,8 +389,7 @@
 			"y": 0.05,
 			"z": 0.05
 		},
-		"texture": "kitchen_stove.png",
-		"normal": "kitchen_stove_norm.png"
+		"texture": "kitchen_stove.png"
 	},
 	"kitchen_table.obj": {
 		"position": {
@@ -392,8 +397,7 @@
 			"y": 0.9,
 			"z": 0.05
 		},
-		"texture": "kitchen_table.png",
-		"normal": "kitchen_table_norm.png"
+		"texture": "kitchen_table.png"
 	},
 	"kitchen_wall_big.obj": {
 		"position": {
@@ -401,7 +405,14 @@
 			"y": 0.0,
 			"z": 0.0
 		},
-		"texture": "kitchen_wall_big.png",
-		"normal": "kitchen_stove_norm.png"
+		"texture": "kitchen_wall_big.png"
+	},
+	"bird.obj": {
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 2.0
+		},
+		"texture": "bird.png"
 	}
 }

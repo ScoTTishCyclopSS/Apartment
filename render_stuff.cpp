@@ -20,9 +20,10 @@ bool Shader::init(std::string vert, std::string frag) {
 	// get vertex attributes locations
 	posLoc = 0;
 	nrmLoc = 1;
-	texLoc = 2;
+	uvLoc = 2;
 	tnLoc = 3;
 	btnLoc = 4;
+	nextPosLoc = 5;
 
 	// get uniforms locations
 	ModMatLoc = glGetUniformLocation(program, "modelMat");
@@ -30,21 +31,69 @@ bool Shader::init(std::string vert, std::string frag) {
 	NormMatLoc = glGetUniformLocation(program, "normMat");
 	ProjMatLoc = glGetUniformLocation(program, "projMat");
 
-	// lighting
-	lightPosLoc = glGetUniformLocation(program, "lightPos");
-	viewPosLoc = glGetUniformLocation(program, "viewPos");
-
-	// material
-	ambtLoc = glGetUniformLocation(program, "material.ambient");
-	diffLoc = glGetUniformLocation(program, "material.diffuse");
-	specLoc = glGetUniformLocation(program, "material.specular");
-	shinLoc = glGetUniformLocation(program, "material.shininess");
-	// tex
+	// textures
 	texSampLoc = glGetUniformLocation(program, "textureSampler");
 	normSampLoc = glGetUniformLocation(program, "normalSampler");
+	roughSampLoc = glGetUniformLocation(program, "roughSampler");
+
+	// light
+	viewPosLoc = glGetUniformLocation(program, "viewPos");
+
+	// time
+	tPos = glGetUniformLocation(program, "t");
+
 	CHECK_GL_ERROR();
 
 	return true;
+}
+
+void Shader::setPointLightUniforms(int count, std::vector<PointLight *> pointLights) {
+
+	for (int i = 0; i < count; i++)
+	{
+		char buf[255];
+
+		// vectors
+		snprintf(buf, 255, "pointLights[%i].diffuse", i);
+		GLuint plightDifPos = glGetUniformLocation(program, buf);
+
+		snprintf(buf, 255, "pointLights[%i].ambient", i);
+		GLuint plightAmbPos = glGetUniformLocation(program, buf);
+
+		snprintf(buf, 255, "pointLights[%i].specular", i);
+		GLuint plightSpecPos = glGetUniformLocation(program, buf);
+
+		// floats
+		snprintf(buf, 255, "pointLights[%i].constant", i);
+		GLuint plightConsPos = glGetUniformLocation(program, buf);
+
+		snprintf(buf, 255, "pointLights[%i].linear", i);
+		GLuint plightLinPos = glGetUniformLocation(program, buf);
+
+		snprintf(buf, 255, "pointLights[%i].quadratic", i);
+		GLuint plightQuadPos = glGetUniformLocation(program, buf);
+
+		// others
+		snprintf(buf, 255, "pointLights[%i].blinn", i);
+		GLuint plightBlinPos = glGetUniformLocation(program, buf);
+
+		snprintf(buf, 255, "pointLights[%i].position", i);
+		GLuint plightPosPos = glGetUniformLocation(program, buf);
+
+
+		glUniform3fv(plightDifPos, 1, value_ptr(pointLights[i]->diffuse));
+		glUniform3fv(plightAmbPos, 1, value_ptr(pointLights[i]->diffuse));
+		glUniform3fv(plightSpecPos, 1, value_ptr(pointLights[i]->diffuse));
+
+		glUniform1f(plightConsPos, pointLights[i]->constant);
+		glUniform1f(plightLinPos, pointLights[i]->linear);
+		glUniform1f(plightQuadPos, pointLights[i]->quadratic);
+
+		glUniform1i(plightBlinPos, pointLights[i]->blinn);
+		glUniform3fv(plightPosPos, 1, value_ptr(pointLights[i]->position));
+	}
+
+	CHECK_GL_ERROR();
 }
 
 void Shader::setTransformUniforms(const mat4& modelMatrix, const mat4& viewMatrix, const mat4& projectionMatrix) {
@@ -59,16 +108,7 @@ void Shader::setTransformUniforms(const mat4& modelMatrix, const mat4& viewMatri
 	CHECK_GL_ERROR();
 }
 
-void Shader::setMaterialUniforms(const vec3& ambient, const vec3& diffuse, const vec3& specular, float shiness, GLuint texture, GLuint normal, bool isLight) {
-
-	glUniform3fv(ambtLoc, 1, value_ptr(ambient));
-	CHECK_GL_ERROR();
-	glUniform3fv(diffLoc, 1, value_ptr(diffuse));
-	CHECK_GL_ERROR();
-	glUniform3fv(specLoc, 1, value_ptr(specular));
-	CHECK_GL_ERROR();
-	glUniform1f(shinLoc, shiness);
-	CHECK_GL_ERROR();
+void Shader::setMaterialUniforms(GLuint texture, GLuint normal) {
 	
 	if (texture != 0)
 	{
@@ -86,7 +126,6 @@ void Shader::setMaterialUniforms(const vec3& ambient, const vec3& diffuse, const
 		CHECK_GL_ERROR();
 	}
 }
-
 
 GLuint loadCubemap(std::vector<std::string> faces)
 {

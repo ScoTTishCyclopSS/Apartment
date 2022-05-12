@@ -147,25 +147,25 @@
   <ItemGroup>
     <ClCompile Include="apartment.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="models_cpp\enter_wall.cpp" />
+    <ClCompile Include="models_cpp\bird.cpp" />
     <ClCompile Include="models_cpp\skybox.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="render_stuff.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lightShader.frag" />
-    <None Include="lightShader.vert" />
     <None Include="models_obj\modelsData.json" />
-    <None Include="shader.frag" />
-    <None Include="shader.vert" />
-    <None Include="sky.frag" />
-    <None Include="sky.vert" />
+    <None Include="shaders\lightShader.frag" />
+    <None Include="shaders\lightShader.vert" />
+    <None Include="shaders\shader.frag" />
+    <None Include="shaders\shader.vert" />
+    <None Include="shaders\sky.frag" />
+    <None Include="shaders\sky.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="blenderModelsHandler.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="json.hpp" />
-    <ClInclude Include="models_cpp\enter_wall.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="models_cpp\bird.h" />
     <ClInclude Include="models_cpp\skybox.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="render_stuff.h" />
