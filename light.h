@@ -48,3 +48,16 @@ public:
         direction = dir;
     }
 };
+
+class SpotLight : public Light {
+public:
+    vec3 direction;
+    vec3 position;
+    float cut;
+
+    SpotLight(vec3 d, vec3 a, vec3 s, vec3 pos, vec3 dir, float c) : Light(d, a, s) {
+        direction = dir;
+        position = pos;
+        cut = c;
+    }
+};

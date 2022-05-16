@@ -1,10 +1,5 @@
 #include "object.h"
 
-extern int frame;
-extern int nextFrame;
-extern float t;
-extern bool s;
-
 bool Object::loadMesh(const std::string& fileName, Shader shader) {
 
 	int maxBones = 50, maxBonesInfluence = 4;
@@ -188,81 +183,26 @@ void Object::initModel(Shader shader) {
 	return;
 }
 
-void Object::initAnimModel(Shader shader) {
-
-	// VBO
-	glGenBuffers(1, &mesh.vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
-	glBufferData(GL_ARRAY_BUFFER, frames * countVertices * countAttribsPerVertex * sizeof(float), vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	CHECK_GL_ERROR();
-
-	// EBO
-	glGenBuffers(1, &mesh.ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned) * countTriangles * 3, triangles, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	CHECK_GL_ERROR();
-
-	// VAO
-	glGenVertexArrays(1, &mesh.vao);
-	glBindVertexArray(mesh.vao);
-	CHECK_GL_ERROR();
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
-	CHECK_GL_ERROR();
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ebo);
-	CHECK_GL_ERROR();
-
-	glEnableVertexAttribArray(shader.posLoc);
-	glVertexAttribPointer(shader.posLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0 * countVertices * 3 * sizeof(float))); // (x, y, z) ... ...
-	CHECK_GL_ERROR();
-
-	glEnableVertexAttribArray(shader.nextPosLoc);
-	//glVertexAttribPointer(shader.nextPosLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0)); // (x, y, z) ... ...
-	CHECK_GL_ERROR();
-
-	glBindVertexArray(0);
-
-	return;
-}
-
 void Object::drawObject(Shader shader, const glm::mat4& viewMat, const glm::mat4& projectMat, const glm::mat4& modelMat) {
 
-	// send mat to shaders
+	if (isSkybox)
+	{
+		glDepthMask(GL_FALSE);
+		glm::mat4 new_view = glm::mat4(glm::mat3(viewMat));
+		shader.setTransformUniforms(modelMat, new_view, projectMat);
+		glBindVertexArray(mesh.vao);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, mesh.texture);
+		glDrawElements(GL_TRIANGLES, countTriangles * 3, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glDepthMask(GL_TRUE);
+		return;
+	}	
+
 	shader.setTransformUniforms(modelMat, viewMat, projectMat);
-
-	shader.setMaterialUniforms(mesh.texture, mesh.normal);
-
-	// draw
+	shader.setMaterialUniforms(mesh.texture, mesh.normal, mesh.rough);
 	glBindVertexArray(mesh.vao);
 	glDrawElements(GL_TRIANGLES, countTriangles * 3, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	CHECK_GL_ERROR();
-
-	return;
-}
-
-void Object::drawAnimObject(Shader shader, const glm::mat4& viewMat, const glm::mat4& projectMat, const glm::mat4& modelMat) {
-
-	// send mat to shaders
-	shader.setTransformUniforms(modelMat, viewMat, projectMat);
-
-	if(t > -1)
-		glUniform1f(shader.tPos, t);
-
-	// draw
-	glBindVertexArray(mesh.vao);
-
-	if (s) {
-		glVertexAttribPointer(shader.posLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)(5 * countVertices * 3 * sizeof(float)));
-		s = !s;
-		CHECK_GL_ERROR();
-	}
-
-	glDrawElements(GL_TRIANGLES, countTriangles * 3, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-
 	return;
 }

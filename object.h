@@ -11,6 +11,7 @@ public:
 	GLuint vao;
 	GLuint texture;
 	GLuint normal;
+	GLuint rough;
 };
 
 class Object {
@@ -28,8 +29,13 @@ public:
 	vec3 position;
 	vec3 scale;
 
-	bool isLightsource;
-	bool isAnimated;
+	bool isLightsource = false;
+	bool isAnimated = false;
+	bool isSkybox = false;
+	bool isTransparent = false;
+	bool isBillboard = false;
+	bool isCombined = false;
+	bool isGlass = false;
 
 	// methods 
 
@@ -39,8 +45,6 @@ public:
 		scale = vec3(1.0f);
 		mesh.texture = 0;
 		mesh.normal = 0;
-		isLightsource = false;
-		isAnimated = false;
 	};
 
 	Object(
@@ -59,12 +63,9 @@ public:
 		vertices = v;
 		triangles = t;
 		name = name_;
-		isLightsource = false;
-		isAnimated = false;
 	};
 
-	void initModel(Shader shader); // .cpp
-	void initAnimModel(Shader shader); // .cpp
+	void initModel(Shader shader); // for .cpp
 
 	void drawObject(
 		Shader shader, 
@@ -73,15 +74,40 @@ public:
 		const glm::mat4& modelMat
 	);
 
-	void drawAnimObject(
-		Shader shader,
-		const glm::mat4& viewMat,
-		const glm::mat4& projectMat,
-		const glm::mat4& modelMat
-	);
-
 	bool loadMesh( // .obj
 		const std::string& fileName, 
 		Shader shader
 	);
+};
+
+class MyCurve {
+public:
+	std::vector<vec3> controlPoints;
+
+	MyCurve(std::vector<vec3> points) {
+		controlPoints = points;
+	};
+
+	float currX(float time) {
+		float x = pow(1 - time, 3) * controlPoints[0].x;
+			  x += 3 * time * pow(1 - time, 2) * controlPoints[1].x;
+			  x += 3 * pow(time, 2) * (1 - time) * controlPoints[2].x;
+			  x += pow(time, 3) * controlPoints[3].x;
+			  x /= 3;
+		return x;
+	};
+
+	float currZ(float time) {
+		float z = pow(1 - time, 3) * controlPoints[0].z;
+			  z += 3 * time * pow(1 - time, 2) * controlPoints[1].z;
+			  z += 3 * pow(time, 2) * (1 - time) * controlPoints[2].z;
+			  z += pow(time, 3) * controlPoints[3].z;
+			  z /= 3;
+		return z;
+	};
+
+	mat4 makeRotationMatrix(vec3 rotate) {
+		quat quaterion = quat(rotate);
+		return glm::mat4_cast(quaterion);
+	};
 };

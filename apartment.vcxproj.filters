@@ -21,22 +21,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="apartment.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="models_cpp\skybox.cpp">
+      <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="render_stuff.cpp">
+    <ClCompile Include="models_cpp\plane.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="apartment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="models_cpp\skybox.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="models_cpp\bird.cpp">
+    <ClCompile Include="render_stuff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="models_cpp\roof.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,28 +65,40 @@
     <None Include="shaders\sky.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\waterShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\waterShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="render_stuff.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="models_cpp\skybox.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="models_cpp\plane.h">
+      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="models_cpp\skybox.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="models_cpp\bird.h">
+    <ClInclude Include="object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render_stuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="models_cpp\roof.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjects.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

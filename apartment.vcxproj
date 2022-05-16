@@ -147,7 +147,8 @@
   <ItemGroup>
     <ClCompile Include="apartment.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="models_cpp\bird.cpp" />
+    <ClCompile Include="models_cpp\plane.cpp" />
+    <ClCompile Include="models_cpp\roof.cpp" />
     <ClCompile Include="models_cpp\skybox.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="render_stuff.cpp" />
@@ -160,12 +161,16 @@
     <None Include="shaders\shader.vert" />
     <None Include="shaders\sky.frag" />
     <None Include="shaders\sky.vert" />
+    <None Include="shaders\waterShader.frag" />
+    <None Include="shaders\waterShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="gameObjects.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="light.h" />
-    <ClInclude Include="models_cpp\bird.h" />
+    <ClInclude Include="models_cpp\plane.h" />
+    <ClInclude Include="models_cpp\roof.h" />
     <ClInclude Include="models_cpp\skybox.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="render_stuff.h" />

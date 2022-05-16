@@ -11,11 +11,15 @@ class Camera {
 public:
 	Camera();
 
-	void SetPos(float x, float y, float z);
+	void SetPos(vec3 pos);
 
-	void OnKeyPress(unsigned char key);
+	void SetView(vec3 view);
+
+	void OnKeyPress();
 
 	void TimeUpdate();
+
+	void CheckPos(int key);
 
 	void OnMouseMove(int x, int y);
 
@@ -28,14 +32,24 @@ public:
 	vec3 camUp;
 
 	// calculations
-	float speed = 0.05;
+	float speed = 0.01;
 	float angle = 0.0;
 	float lastTime = 0.0;
 	float deltaTime = 0.0; // time between current frame and last frame
+	float timeOnMove = 0.0;
+	float speedEncounter = 0.01;
 
 	// crosshair
 	float x_last = GL_WINDOW_WIDTH / 2;
 	float y_last = GL_WINDOW_HEIGHT / 2;
 	float yaw = 0.0;
 	float pitch = 0.0;
+
+	bool lock = false;
+	int currPos = 0;
+
+	std::vector<vec3> positions;
+	std::vector<vec2> views; // yaw, pitch
+
+	bool callbacks[256] = { false };
 };

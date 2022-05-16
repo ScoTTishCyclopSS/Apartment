@@ -39,6 +39,13 @@ struct spotLight
 	GLuint direction;
 };
 
+struct Fog {
+	vec3 color;
+	float start, end, density;
+	int type;
+	bool isActive;
+};
+
 class Shader {
 public:
 	GLuint program; // id
@@ -71,23 +78,26 @@ public:
 	dirLight dirLightProps;
 	spotLight spotLightProps;
 
+	// ---- Fog ----
+	Fog fogProps;
+
+	// ---- Water ----
+	GLuint waveStrengthLoc;
+	GLuint layerLoc;
+
 	bool init(std::string vert, std::string frag);
 
-	void setMaterialUniforms(
-		GLuint texture,
-		GLuint normal
-	);
+	void setMaterialUniforms(GLuint texture, GLuint normal, GLuint rough);
 
-	void setTransformUniforms(
-		const glm::mat4& modelMatrix,
-		const glm::mat4& viewMatrix,
-		const glm::mat4& projectionMatrix
-	);
+	void setTransformUniforms(const glm::mat4& modelMatrix, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
-	void setPointLightUniforms(
-		int count,
-		std::vector<PointLight*> pointLights
-	);
+	void setPointLightUniforms(std::vector<PointLight*> pointLights);
+
+	void setFogUniforms(vec3 color, float start, float end, float dens, int type, bool active);
+
+	void setSpotLightUniforms(SpotLight* spl, bool active);
+
+	void setDirLightUniforms(DirectLight* dl);
 };
 
 GLuint loadCubemap(std::vector<std::string> faces);

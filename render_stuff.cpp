@@ -36,20 +36,74 @@ bool Shader::init(std::string vert, std::string frag) {
 	normSampLoc = glGetUniformLocation(program, "normalSampler");
 	roughSampLoc = glGetUniformLocation(program, "roughSampler");
 
-	// light
+	// light (& mb fog)
 	viewPosLoc = glGetUniformLocation(program, "viewPos");
 
 	// time
 	tPos = glGetUniformLocation(program, "t");
+
+	// water
+	waveStrengthLoc = glGetUniformLocation(program, "waveStrength");
+	layerLoc = glGetUniformLocation(program, "layer");
 
 	CHECK_GL_ERROR();
 
 	return true;
 }
 
-void Shader::setPointLightUniforms(int count, std::vector<PointLight *> pointLights) {
+void Shader::setFogUniforms(vec3 color, float start, float end, float dens, int type, bool active) {
+	GLuint fogColorPos = glGetUniformLocation(program, "fog.color");
+	GLuint fogStartPos = glGetUniformLocation(program, "fog.start");
+	GLuint fogEndPos = glGetUniformLocation(program, "fog.end");
+	GLuint fogDensPos = glGetUniformLocation(program, "fog.density");
+	GLuint fogTypePos = glGetUniformLocation(program, "fog.type");
+	GLuint fogActivePos = glGetUniformLocation(program, "fog.isActive");
 
-	for (int i = 0; i < count; i++)
+	glUniform3fv(fogColorPos, 1, value_ptr(color));
+	glUniform1f(fogStartPos, start);
+	glUniform1f(fogEndPos, end);
+	glUniform1f(fogDensPos, dens);
+	glUniform1i(fogTypePos, type);
+	glUniform1i(fogActivePos, active);
+}
+
+void Shader::setSpotLightUniforms(SpotLight *spl, bool active) {
+	GLuint plightDirPos = glGetUniformLocation(program, "spotLight.direction");
+	GLuint plightPosPos = glGetUniformLocation(program, "spotLight.position");
+	GLuint plightCutPos = glGetUniformLocation(program, "spotLight.cut");
+	GLuint plightDiffPos = glGetUniformLocation(program, "spotLight.diffuse");
+	GLuint plightAmbPos = glGetUniformLocation(program, "spotLight.ambient");
+	GLuint plightSpecPos = glGetUniformLocation(program, "spotLight.specular");
+	GLuint plightSwitchPos = glGetUniformLocation(program, "spotLight.isActive");
+
+	glUniform3fv(plightDirPos, 1, value_ptr(spl->direction));
+	glUniform3fv(plightPosPos, 1, value_ptr(spl->position));
+	glUniform3fv(plightDiffPos, 1, value_ptr(spl->diffuse));
+	glUniform3fv(plightAmbPos, 1, value_ptr(spl->ambient));
+	glUniform3fv(plightSpecPos, 1, value_ptr(spl->specular));
+	glUniform1f(plightCutPos, spl->cut);
+	glUniform1i(plightSwitchPos, active);
+
+	CHECK_GL_ERROR();
+}
+
+void Shader::setDirLightUniforms(DirectLight* dl) {
+	GLuint plightDirPos = glGetUniformLocation(program, "directLight.direction");
+	GLuint plightDiffPos = glGetUniformLocation(program, "directLight.diffuse");
+	GLuint plightAmbPos = glGetUniformLocation(program, "directLight.ambient");
+	GLuint plightSpecPos = glGetUniformLocation(program, "directLight.specular");
+
+	glUniform3fv(plightDirPos, 1, value_ptr(dl->direction));
+	glUniform3fv(plightDiffPos, 1, value_ptr(dl->diffuse));
+	glUniform3fv(plightAmbPos, 1, value_ptr(dl->ambient));
+	glUniform3fv(plightSpecPos, 1, value_ptr(dl->specular));
+
+	CHECK_GL_ERROR();
+}
+
+void Shader::setPointLightUniforms(std::vector<PointLight *> pointLights) {
+
+	for (int i = 0; i < pointLights.size(); i++)
 	{
 		char buf[255];
 
@@ -108,12 +162,12 @@ void Shader::setTransformUniforms(const mat4& modelMatrix, const mat4& viewMatri
 	CHECK_GL_ERROR();
 }
 
-void Shader::setMaterialUniforms(GLuint texture, GLuint normal) {
+void Shader::setMaterialUniforms(GLuint texture, GLuint normal, GLuint rough) {
 	
 	if (texture != 0)
 	{
-		glUniform1i(texSampLoc, 0); // 0 -> samplerID, for GPU linker
-		glActiveTexture(GL_TEXTURE0);            // 0 -> to be bound, for OpenGL BindTexture
+		glUniform1i(texSampLoc, 0);
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		CHECK_GL_ERROR();
 	}
@@ -122,7 +176,15 @@ void Shader::setMaterialUniforms(GLuint texture, GLuint normal) {
 	{
 		glUniform1i(normSampLoc, 1);
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, normal); // todo -> check 0
+		glBindTexture(GL_TEXTURE_2D, normal);
+		CHECK_GL_ERROR();
+	}
+
+	if (rough != 0)
+	{
+		glUniform1i(roughSampLoc, 1);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, rough);
 		CHECK_GL_ERROR();
 	}
 }

@@ -15,6 +15,14 @@
 		},
 		"texture": "bathroom_drawer.png"
 	},
+	"bathroom_machine.obj": {
+		"position": {
+			"x": -4.07,
+			"y": -0.47,
+			"z": 0.05
+		},
+		"texture": "bathroom_machine.png"
+	},
 	"bathroom_floor.obj": {
 		"position": {
 			"x": -4.4,
@@ -70,6 +78,14 @@
 			"z": 0
 		},
 		"texture": "bathroom_wall.png"
+	},
+	"bathroom_m.obj": {
+		"position": {
+			"x": -3.46,
+			"y": -1.5,
+			"z": 0.68
+		},
+		"texture": "bathroom_m.png"
 	},
 	"bathroom_door.obj": {
 		"position": {
@@ -150,6 +166,22 @@
 			"z": 1.12
 		},
 		"texture": "bedroom_partition.png"
+	},
+	"bedroom_keys.obj": {
+		"position": {
+			"x": -0.5,
+			"y": -1.16,
+			"z": 0.444
+		},
+		"texture": "bedroom_keys.png"
+	},
+	"bedroom_robot.obj": {
+		"position": {
+			"x": -1.0,
+			"y": -0.35,
+			"z": 0.075
+		},
+		"texture": "bedroom_robot.png"
 	},
 	"balcon_floor.obj": {
 		"position": {
@@ -303,13 +335,29 @@
 		},
 		"texture": "kitchen_coffee.png"
 	},
+	"kitchen_coffee_flow.obj": {
+		"position": {
+			"x": -1.82,
+			"y": 1.365,
+			"z": 0.567
+		},
+		"texture": "_y.png"
+	},
 	"kitchen_cup.obj": {
 		"position": {
-			"x": -1.93,
-			"y": 1.42,
-			"z": 0.4645
+			"x": -1.8,
+			"y": 1.36,
+			"z": 0.55
 		},
 		"texture": "kitchen_cup.png"
+	},
+	"kitchen_cup_fill.obj": {
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"texture": "_x.png"
 	},
 	"kitchen_drawer_double.obj": {
 		"position": {
@@ -375,6 +423,14 @@
 		},
 		"texture": "kitchen_plant.png"
 	},
+	"kitchen_plant_flower.obj": {
+		"position": {
+			"x": -2.05,
+			"y": 1.4,
+			"z": 0.56
+		},
+		"texture": "kitchen_plant_flower.png"
+	},
 	"kitchen_sink.obj": {
 		"position": {
 			"x": -2.4,
@@ -407,12 +463,68 @@
 		},
 		"texture": "kitchen_wall_big.png"
 	},
-	"bird.obj": {
+	"balcon_wall.obj": {
 		"position": {
 			"x": 0.0,
-			"y": 0.0,
-			"z": 2.0
+			"y": 1.41,
+			"z": 0.0
 		},
-		"texture": "bird.png"
+		"texture": "balcon_wall.png"
+	},
+	"balcon_floor.obj": {
+		"position": {
+			"x": -0.03,
+			"y": 1.41,
+			"z": 0.0
+		},
+		"texture": "balcon_floor.png"
+	},
+	"balcon_box1.obj": {
+		"position": {
+			"x": 0.1,
+			"y": 1.2,
+			"z": 0.051
+		},
+		"texture": "balcon_box1.png"
+	},
+	"balcon_box2.obj": {
+		"position": {
+			"x": 0.6,
+			"y": 1.2,
+			"z": 0.051
+		},
+		"texture": "balcon_box2.png"
+	},
+	"window.obj": {
+		"position": {
+			"x": 0.0,
+			"y": -0.5,
+			"z": 0.725
+		},
+		"texture": "window.png"
+	},
+	"window_glass.obj": {
+		"position": {
+			"x": -0.01,
+			"y": -0.5,
+			"z": 0.89
+		},
+		"texture": "roof.png"
+	},
+	"window2.obj": {
+		"position": {
+			"x": -0.05,
+			"y": -0.5,
+			"z": 0.725
+		},
+		"texture": "window.png"
+	},
+	"window2_glass.obj": {
+		"position": {
+			"x": -0.035,
+			"y": -0.5,
+			"z": 0.559
+		},
+		"texture": "roof.png"
 	}
 }
