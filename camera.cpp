@@ -138,12 +138,12 @@ void Camera::OnMouseMove(int x, int y) {
 
 		glutPostRedisplay();
 
-		if (x < 50 || x > GL_WINDOW_WIDTH - 50) {
+		if (x < 20 || x > GL_WINDOW_WIDTH - 20) {
 			x_last = GL_WINDOW_WIDTH / 2;
 			y_last = GL_WINDOW_HEIGHT / 2;
 			glutWarpPointer(GL_WINDOW_WIDTH / 2, GL_WINDOW_HEIGHT / 2);
 		}
-		if (y < 50 || y > GL_WINDOW_HEIGHT - 50) {
+		if (y < 20 || y > GL_WINDOW_HEIGHT - 20) {
 			x_last = GL_WINDOW_WIDTH / 2;
 			y_last = GL_WINDOW_HEIGHT / 2;
 			glutWarpPointer(GL_WINDOW_WIDTH / 2, GL_WINDOW_HEIGHT / 2);

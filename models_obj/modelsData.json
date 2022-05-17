@@ -15,14 +15,6 @@
 		},
 		"texture": "bathroom_drawer.png"
 	},
-	"bathroom_machine.obj": {
-		"position": {
-			"x": -4.07,
-			"y": -0.47,
-			"z": 0.05
-		},
-		"texture": "bathroom_machine.png"
-	},
 	"bathroom_floor.obj": {
 		"position": {
 			"x": -4.4,
@@ -42,7 +34,7 @@
 	"bathroom_rug.obj": {
 		"position": {
 			"x": -3.85,
-			"y": -0.6,
+			"y": -0.66,
 			"z": 0.05
 		},
 		"texture": "bathroom_rug.png"
