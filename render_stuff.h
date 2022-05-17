@@ -1,3 +1,15 @@
+/**
+ * @file render_stuff.h
+ *
+ * @brief Main stage controller. Processing shaders, lights and post-process effects (such as fog);
+ *
+ * @ingroup apartment
+ *
+ * @author Timushev Fedor
+ * Contact: timusfed@fel.cvut.cz
+ *
+ */
+
 #ifndef __RENDER_STUFF_H
 #define __RENDER_STUFF_H
 

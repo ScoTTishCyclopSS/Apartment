@@ -1,3 +1,15 @@
+/**
+ * @file gameObjects.h
+ *
+ * @brief Handler for some game objects on a scene.
+ *
+ * @ingroup apartment
+ *
+ * @author Timushev Fedor
+ * Contact: timusfed@fel.cvut.cz
+ *
+ */
+
 #include "object.h"
 
 struct CoffeeMake

@@ -1,3 +1,14 @@
+/**
+ * @file camera.h
+ *
+ * @brief Main camera header files. Contents camera class.
+ *
+ * @ingroup apartment
+ *
+ * @author Timushev Fedor
+ * Contact: timusfed@fel.cvut.cz
+ *
+ */
 #pragma once
 #include "pgr.h"
 #include <iostream>
@@ -26,12 +37,10 @@ public:
 	mat4 transformMatrix;
 	mat4 GetTransfromMatrix();
 
-	// camera
 	vec3 camPosition;
 	vec3 camFront;
 	vec3 camUp;
 
-	// calculations
 	float speed = 0.01;
 	float angle = 0.0;
 	float lastTime = 0.0;

@@ -1,3 +1,15 @@
+/**
+ * @file light.h
+ *
+ * @brief Handler for light classes.
+ *
+ * @ingroup apartment
+ *
+ * @author Timushev Fedor
+ * Contact: timusfed@fel.cvut.cz
+ *
+ */
+
 #pragma once
 #include "pgr.h"
 
@@ -27,9 +39,8 @@ public:
     vec3 startPosition;
     vec3 interpolateTo;
 
-    PointLight(vec3 dif, vec3 amb, vec3 spec,
-        float con, float lin, float quad, 
-        bool blin, vec3 pos, vec3 inter) : Light(dif, amb, spec) {
+    PointLight(vec3 dif, vec3 amb, vec3 spec,float con, float lin, float quad, bool blin, vec3 pos, vec3 inter) : Light(dif, amb, spec) 
+    {
         constant = con;
         linear = lin;
         quadratic = quad;

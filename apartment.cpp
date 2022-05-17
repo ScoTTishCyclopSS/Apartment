@@ -29,7 +29,9 @@ struct Scene {
 	Shader lightShader;
 	Shader skyShader;
 	Shader waterShader;
+
 	Camera camera;
+	
 	float previousTime = 0;
 	float t = 0.0;
 	float fov = 70.0;
@@ -55,7 +57,6 @@ struct Scene {
 	vector<fs::path> models_paths;
 	vector<string> skybox_paths;
 
-	// lights
 	vector<PointLight*> point_lights;
 	SpotLight* flashlight;
 	DirectLight* dirLight;
